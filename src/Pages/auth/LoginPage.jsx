@@ -1,7 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
 import { AuthHeader } from "./authHeader";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () =>{
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+
+    try {
+       const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/login`, {
+        email, password
+       });
+
+       if(res.data.success){
+
+          setUserInfo({
+            ...userInfo,
+            user: res.data.user,
+            token: res.data.token,
+        });
+
+        localStorage.setItem("msi", JSON.stringify(res.data));
+
+        navigate('/');
+
+       }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  const loginwithGoogle = async (e) => {
+    e.preventDefault();
+    try {
+
+      const snapshot = await signInGoogle();
+      const data = snapshot?.user;
+      const token = snapshot?._tokenResponse.idToken;
+
+      const userData = {
+          name : data.displayName,
+          email : data.email,
+          photoURL : data.photoURL,
+          googleId : data.uid
+      }
+       
+      const res = await axios.post(
+        `${import.meta.env.VITE_SERVER_API}/api/v1/auth/register-google`,{
+          userData,
+        }
+      );
+
+      if(res.data.success){
+
+        const user = res.data?.isExists || res.data?.user;
+
+        setUserInfo({
+          ...userInfo,
+          user: user,
+          token: token,
+        });
+  
+        localStorage.setItem("msi", JSON.stringify({user, token}));
+
+        navigate("/");
+      }
+
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
     <AuthHeader/>
@@ -14,6 +92,9 @@ export const LoginPage = () =>{
             <input 
               type="email" 
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           <div className="mb-4">
@@ -21,13 +102,22 @@ export const LoginPage = () =>{
             <input 
               type="password" 
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
+         
+          <div className="mb-4">
+          <NavLink to="/forget-password" className="text-blue-500">Forget Password ?</NavLink>
+          </div>
+
           <button 
             type="submit" 
             className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+            onClick={handleSubmit}
           >
-            Register
+            Log in
           </button>
 
 
@@ -38,7 +128,7 @@ export const LoginPage = () =>{
            </div>
 
            <div className="mb-4">
-             <button className="w-full flex items-center justify-center bg-white border border-gray-300 p-2 rounded-lg hover:bg-gray-100 transition">
+             <button className="w-full flex items-center justify-center bg-white border border-gray-300 p-2 rounded-lg hover:bg-gray-100 transition" onClick={loginwithGoogle}>
                <img src="/google-logo.png"  alt="Google Logo" className="w-8 h-8 mr-2"/>
                  Sign in with Google
             </button>
