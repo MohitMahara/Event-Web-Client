@@ -5,7 +5,7 @@ export const Layout = ({children}) =>{
    return(
     <>
       <Header/>
-      <main className="h-dvh md:h-screen">
+      <main className="min-h-dvh md:min-h-screen">
         {children}
       </main>
       <Footer/>

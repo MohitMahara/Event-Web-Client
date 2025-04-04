@@ -3,6 +3,7 @@ import { UseFirebase } from "../../Contexts/firebaseContext";
 import { FaRegUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const [visible, setVisible] = useState(false);
@@ -10,11 +11,13 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-
 // For handling the mobile menu
 
   const handleClick = () => {
-      if (visible) setVisible(false);
+      if (visible) {
+        setVisible(false);
+        setIsOpen(false);
+      }
       else setVisible(true);
   };
 
@@ -24,7 +27,6 @@ export const Header = () => {
     if (isOpen) setIsOpen(false);
     else setIsOpen(true);
   }
-
 
   // For handling the Logout
 
@@ -47,44 +49,54 @@ export const Header = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-md">
+      <nav className="bg-white shadow-md w-full">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
-            <a href="/" className="flex text-2xl font-bold content-center">
+            <Link to="/" className="flex text-2xl font-bold content-center">
               <img
                 src="/android-chrome-192x192.png"
                 alt=""
                 className="h-10 w-10"
               />
               <p className="ps-2">MSI Events</p>
-            </a>
+            </Link>
             <ul className="hidden md:flex space-x-6">
               <li>
-                <a href="/" className="text-gray-700 hover:text-blue-600">
+                <Link to="/" className="text-gray-700 hover:text-blue-600">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/events" className="text-gray-700 hover:text-blue-600">
-                  Events
-                </a>
+                <Link to="/events" className="text-gray-700 hover:text-blue-600">
+                  Browse Events
+                </Link>
               </li>
 
               <li>
+                <Link to="/events" className="text-gray-700 hover:text-blue-600">
+                  Organize
+                </Link>
+              </li>
+
+              </ul>
+
+              <div className="hidden md:flex">
                 {userInfo?.token ? (
                   <>
                     <div className="relative flex flex-col items-center justify-center inline-block cursor-pointer mr-2">
                       {userInfo?.user?.photoURL ? (
                         <img src={userInfo?.user?.photoURL} className="rounded-full w-8 border h-8" alt="user profile pic" onClick={handleMenu}/>
                       ) : (
-                        
-                         <FaRegUser className="w-5 h-5" onClick={handleMenu}/>
+
+                         <div className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center text-white text-xl mb-4" onClick={handleMenu}>
+                            <p className="text-lg">{userInfo?.user?.name?.charAt(0)}</p>
+                         </div>
                       )}
 
                      {isOpen && (
-                      <div className="absolute flex flex-col bg-gray-800 text-md border shadow-lg rounded-md text-white text-center top-10 left-1/2 transform -translate-x-1/2 w-22">
-                        <NavLink className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-t-md">
-                          Profile
+                      <div className="absolute z-1 flex flex-col bg-gray-800 text-md shadow-lg rounded-md text-white text-center top-10 left-1/2 transform -translate-x-1/2 w-25">
+                        <NavLink to="/user-dashboard" className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-t-md">
+                          Dashboard
                         </NavLink>
                         <NavLink className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-b-md" onClick={handleLogOut}>
                           Logout
@@ -95,15 +107,11 @@ export const Header = () => {
                     </div>
                   </>
                 ) : (
-                  <a
-                    href="/register"
-                    className="text-gray-700 hover:text-blue-600"
-                  >
+                  <Link to="/register" className="text-gray-700 hover:text-blue-600">
                     SignUp
-                  </a>
+                  </Link>
                 )}
-              </li>
-            </ul>
+              </div>
 
             <button
               id="menu-btn"
@@ -130,29 +138,55 @@ export const Header = () => {
               <div id="mobile-menu" className="md:hidden">
                 <ul className="flex flex-col space-y-4 py-4 text-center bg-gray-50">
                   <li>
-                    <a
-                      href="/"
-                      className="block text-gray-700 hover:text-blue-600"
-                    >
+                    <Link to="/" className="block text-gray-700 hover:text-blue-600">
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/events"
-                      className="block text-gray-700 hover:text-blue-600"
-                    >
-                      Events
-                    </a>
+                    <Link to="/events" className="block text-gray-700 hover:text-blue-600">
+                      Browse Events
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/register"
-                      className="block text-gray-700 hover:text-blue-600"
-                    >
-                      SignUp
-                    </a>
+                    <Link to="/organize-event" className="block text-gray-700 hover:text-blue-600">
+                      Organize
+                    </Link>
                   </li>
+                  <li>
+                {userInfo?.token ? (
+                  <>
+                    <div className="relative flex flex-col items-center justify-center inline-block cursor-pointer mr-2">
+                      {userInfo?.user?.photoURL ? (
+                        <img src={userInfo?.user?.photoURL} className="rounded-full w-8 border h-8" alt="user profile pic" onClick={handleMenu}/>
+                      ) : (
+
+                         <div className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center text-white text-xl mb-4" onClick={handleMenu}>
+                         <p className="text-lg">{userInfo?.user?.name?.charAt(0)}</p>
+                      </div>
+                      )}
+
+                     {isOpen && (
+                      <div className="absolute z-10 flex flex-col bg-gray-800 text-md shadow-lg rounded-md text-white text-center top-10 left-1/2 transform -translate-x-1/2 w-25">
+                        <NavLink to="/user-dashboard" className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-t-md">
+                          Dashboard
+                        </NavLink>
+                        <NavLink className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-b-md" onClick={handleLogOut}>
+                          Logout
+                        </NavLink>
+                      </div>
+                     )}
+
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    to="/register"
+                    className="text-gray-700 hover:text-blue-600"
+                  >
+                    SignUp
+                  </Link>
+                )}
+              </li>
                 </ul>
               </div>
             </>
@@ -162,3 +196,240 @@ export const Header = () => {
     </>
   );
 };
+
+// import React, { useState } from "react";
+// import { UseFirebase } from "../../Contexts/firebaseContext";
+// import { FaRegUser } from "react-icons/fa";
+// import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+
+// export const Header = () => {
+//   const [visible, setVisible] = useState(false);
+//   const { userInfo, setUserInfo } = UseFirebase();
+//   const [isOpen, setIsOpen] = useState(false);
+//   const navigate = useNavigate();
+
+//   // For handling the mobile menu
+
+//   const handleClick = () => {
+//     if (visible) {
+//       setVisible(false);
+//       setIsOpen(false);
+//     } else setVisible(true);
+//   };
+
+//   // For handling the profile menu
+
+//   const handleMenu = () => {
+//     if (isOpen) setIsOpen(false);
+//     else setIsOpen(true);
+//   };
+
+//   // For handling the Logout
+
+//   const handleLogOut = async () => {
+//     try {
+//       await setUserInfo({
+//         ...userInfo,
+//         user: null,
+//         token: null,
+//       });
+
+//       localStorage.removeItem("msi");
+//       setIsOpen(false);
+//       navigate("/login");
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   return (
+//     <nav className="fixed top-0 left-0 w-full backdrop-blur-md bg-white/30 shadow-md z-50">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         <div className="flex justify-between items-center py-4">
+//           <Link
+//             to="/"
+//             className="flex justify-center items-center text-2xl font-bold text-gray-900"
+//           >
+//             <img
+//               src="/android-chrome-192x192.png"
+//               alt="MSI Logo"
+//               className="h-10 w-10"
+//             />
+//             <p className="pl-2">MSI Events</p>
+//           </Link>
+
+//           <div className="hidden md:flex space-x-6">
+//             <Link
+//               to="/events"
+//               className="text-gray-700 hover:text-gray-900 transition"
+//             >
+//               Home
+//             </Link>
+//             <Link
+//               to="/about"
+//               className="text-gray-700 hover:text-gray-900 transition"
+//             >
+//               Browse Events
+//             </Link>
+//             <Link
+//               to="/contact"
+//               className="text-gray-700 hover:text-gray-900 transition"
+//             >
+//               Organize
+//             </Link>
+//           </div>
+
+//           <div className="hidden md:flex space-x-4">
+//             {userInfo?.token ? (
+//               <>
+//                 <div className="relative flex flex-col items-center justify-center inline-block cursor-pointer mr-2">
+//                   {userInfo?.user?.photoURL ? (
+//                     <img
+//                       src={userInfo?.user?.photoURL}
+//                       className="rounded-full w-8 border h-8"
+//                       alt="user profile pic"
+//                       onClick={handleMenu}
+//                     />
+//                   ) : (
+//                     <div
+//                       className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center text-white text-xl mb-4"
+//                       onClick={handleMenu}
+//                     >
+//                       <p className="text-lg">
+//                         {userInfo?.user?.name?.charAt(0)}
+//                       </p>
+//                     </div>
+//                   )}
+
+//                   {isOpen && (
+//                     <div className="absolute flex flex-col bg-gray-800 text-md border shadow-lg rounded-md text-white text-center top-10 left-1/2 transform -translate-x-1/2 w-25">
+//                       <NavLink to="/user-dashboard"
+//                         className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-t-md"
+//                       >
+//                         Dashboard
+//                       </NavLink>
+//                       <NavLink
+//                         className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-b-md"
+//                         onClick={handleLogOut}
+//                       >
+//                         Logout
+//                       </NavLink>
+//                     </div>
+//                   )}
+//                 </div>
+//               </>
+//             ) : (
+//               <Link to="/register" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition">
+//                 Sign Up
+//               </Link>
+//             )}
+//           </div>
+
+//           <button
+//             id="menu-btn"
+//             className="md:hidden text-gray-700"
+//             onClick={handleClick}
+//           >
+//             <svg
+//               className="w-6 h-6"
+//               fill="none"
+//               stroke="currentColor"
+//               strokeWidth={2}
+//               viewBox="0 0 24 24"
+//             >
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 d="M4 6h16M4 12h16m-7 6h7"
+//               />
+//             </svg>
+//           </button>
+//         </div>
+
+//         {visible && (
+//           <>
+//             <div id="mobile-menu" className="md:hidden">
+//               <ul className="flex flex-col space-y-4 py-4 text-center bg-gray-50">
+//                 <li>
+//                   <Link
+//                     to="/"
+//                     className="block text-gray-700 hover:text-blue-600"
+//                   >
+//                     Home
+//                   </Link>
+//                 </li>
+//                 <li>
+//                   <Link
+//                     to="/events"
+//                     className="block text-gray-700 hover:text-blue-600"
+//                   >
+//                     Browse Events
+//                   </Link>
+//                 </li>
+
+//                 <li>
+//                   <Link
+//                     to="/organize-event"
+//                     className="block text-gray-700 hover:text-blue-600"
+//                   >
+//                     Organize
+//                   </Link>
+//                 </li>
+//                 <li>
+//                   {userInfo?.token ? (
+//                     <>
+//                       <div className="relative flex flex-col items-center justify-center inline-block cursor-pointer mr-2">
+//                         {userInfo?.user?.photoURL ? (
+//                           <img
+//                             src={userInfo?.user?.photoURL}
+//                             className="rounded-full w-8 border h-8"
+//                             alt="user profile pic"
+//                             onClick={handleMenu}
+//                           />
+//                         ) : (
+//                           <div
+//                             className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center text-white text-xl mb-4"
+//                             onClick={handleMenu}
+//                           >
+//                             <p className="text-lg">
+//                               {userInfo?.user?.name?.charAt(0)}
+//                             </p>
+//                           </div>
+//                         )}
+
+//                         {isOpen && (
+//                           <div className="absolute flex flex-col bg-gray-800 text-md border shadow-lg rounded-md text-white text-center top-10 left-1/2 transform -translate-x-1/2 w-25">
+//                             <NavLink
+//                               to="/user-dashboard"
+//                               className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-t-md"
+//                             >
+//                               Dashboard
+//                             </NavLink>
+//                             <NavLink
+//                               className="px-2 py-1.5 transition duration-200 ease-in-out hover:bg-gray-600 hover:text-white rounded-b-md"
+//                               onClick={handleLogOut}
+//                             >
+//                               Logout
+//                             </NavLink>
+//                           </div>
+//                         )}
+//                       </div>
+//                     </>
+//                   ) : (
+//                     <a
+//                       href="/register"
+//                       className="text-gray-700 hover:text-blue-600"
+//                     >
+//                       SignUp
+//                     </a>
+//                   )}
+//                 </li>
+//               </ul>
+//             </div>
+//           </>
+//         )}
+//       </div>
+//     </nav>
+//   );
+// };

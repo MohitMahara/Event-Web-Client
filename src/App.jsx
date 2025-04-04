@@ -5,6 +5,8 @@ import HomePage from './Pages/HomePage';
 import { RegisterPage } from './Pages/auth/RegisterPage';
 import { LoginPage } from './Pages/auth/LoginPage';
 import { ForgetPasswordPage } from './Pages/auth/ForgetPasswordPage';
+import { UserDashboard } from './Components/Dashboards/UserDashboard';
+import { AttendedEventsPage } from './Components/Profile/AttendedEventsPage';
 
 function App() {
 
@@ -15,6 +17,8 @@ function App() {
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/forget-password' element={<ForgetPasswordPage/>} />
+        <Route path='/user-dashboard' element={<UserDashboard/>} />
+        <Route path='/attended-events' element={<AttendedEventsPage/>} />
      </Routes>
 
     </>
