@@ -107,7 +107,7 @@ export const Header = () => {
                     </div>
                   </>
                 ) : (
-                  <Link to="/register" className="text-gray-700 hover:text-blue-600">
+                  <Link to="/register" className="bg-gray-800 text-gray-200 py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-200">
                     SignUp
                   </Link>
                 )}
@@ -143,13 +143,15 @@ export const Header = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/events" className="block text-gray-700 hover:text-blue-600">
-                      Browse Events
-                    </Link>
-                  </li>
-                  <li>
+
                     <Link to="/organize-event" className="block text-gray-700 hover:text-blue-600">
                       Organize
+                    </Link>
+
+                  </li>
+                  <li>
+                    <Link to="/events" className="block text-gray-700 hover:text-blue-600">
+                      Browse Events
                     </Link>
                   </li>
                   <li>
@@ -179,10 +181,7 @@ export const Header = () => {
                     </div>
                   </>
                 ) : (
-                  <Link
-                    to="/register"
-                    className="text-gray-700 hover:text-blue-600"
-                  >
+                  <Link to="/register" className="bg-gray-800 text-gray-200 py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-200">
                     SignUp
                   </Link>
                 )}

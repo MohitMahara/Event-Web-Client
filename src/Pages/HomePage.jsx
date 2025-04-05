@@ -1,13 +1,14 @@
 import React from "react";
 import { Layout } from "../Components/Layout/Layout";
 import { motion } from "framer-motion";
+import { UpcomingEvents } from "./Event/UpcomingEvents";
+import CompletedEvents from "./Event/CompletedEvents";
 
 const HomePage = () => {
   return (
     <>
       <Layout>
         <section className="relative w-full h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 text-center">
-          {/* <div className="absolute inset-0 bg-black bg-opacity-40"></div> */}
 
           <div className="relative z-10 max-w-3xl text-center">
             <motion.h1
@@ -25,7 +26,7 @@ const HomePage = () => {
               transition={{ duration: 1 }}
               className="text-lg md:text-xl mb-6"
             >
-              Find the best events at your college, or host your own with ease!
+            Find all the events happening at MSI in one place, or seamlessly organize your own
             </motion.p>
 
             <motion.div
@@ -42,6 +43,14 @@ const HomePage = () => {
               </button>
             </motion.div>
           </div>
+        </section>
+
+        <section className="w-full h-auto flex bg-gray-100 ">
+          <UpcomingEvents/>
+        </section>
+
+        <section className="w-full min-h-screen flex bg-gray-100 p-8">
+          <CompletedEvents/>
         </section>
       </Layout>
     </>
