@@ -49,7 +49,7 @@ const HomePage = () => {
           <UpcomingEvents/>
         </section>
 
-        <section className="w-full min-h-screen flex bg-gray-100 p-8">
+        <section className="w-full min-h-screen flex bg-gray-100">
           <CompletedEvents/>
         </section>
       </Layout>

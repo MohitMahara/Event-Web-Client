@@ -1,0 +1,80 @@
+[
+    {
+      "id": 1,
+      "title": "TechFest 2025",
+      "date": "2025-03-10",
+      "time": "10:00 AM",
+      "venue": "Main Auditorium",
+      "organizer": "MSI Tech Club",
+      "category": "Technology",
+      "description": "The biggest tech fest of the year with hackathons, workshops, and more!",
+      "image" : "https://content.skyscnr.com/m/6428abfa2f4eadc7/original/TechConference_H.jpg?resize=1224%3Aauto"
+
+    },
+    {
+      "id": 2,
+      "title": "AI Conference",
+      "date": "2025-04-05",
+      "time": "12:30 PM",
+      "venue": "Seminar Hall B",
+      "organizer": "MSI Placement Cell",
+      "category": "Education",
+      "description": "Join industry experts to explore the future of AI.",
+      "image" : "https://media.istockphoto.com/id/1452604857/photo/businessman-touching-the-brain-working-of-artificial-intelligence-automation-predictive.jpg?s=612x612&w=0&k=20&c=GkAOxzduJbUKpS2-LX_l6jSKtyhdKlnPMo2ito4xpR4="
+    },
+    {
+      "id": 3,
+      "title": "Cultural Fest 2025",
+      "date": "2025-04-15",
+      "time": "6:00 PM",
+      "venue": "Main Ground",
+      "organizer": "NSS, MSI",
+      "category": "Entertainment",
+      "description": "An evening filled with mesmerizing performances.",
+      "image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtz2lcitXMr5fjY8WlXVsLvPk2mXjtKeLb4Q&s"
+    },
+    {
+      "id": 4,
+      "title": "Hackathon 2024",
+      "date": "2025-11-20",
+      "time": "9:00 AM",
+      "venue": "Lab 4",
+      "organizer": "Software Development Cell",
+      "category": "Technology",
+      "description": "Compete in teams to solve real-world coding challenges.",
+      "image" : "https://res.infoq.com/articles/hackathon-developer-innovation/en/headerimage/generatedHeaderImage-1662578814159.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Art Exhibition",
+      "date": "2025-10-12",
+      "time": "3:00 PM",
+      "venue": "Art Gallery",
+      "organizer": "Fine Arts Club",
+      "category": "Art",
+      "description": "A showcase of stunning artworks by students and professionals.",
+      "image" : "https://jmlschool.org/wp-content/uploads/2024/02/IMG20240110113458-1.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Avensis",
+        "date": "2024-10-12",
+        "time": "3:00 PM",
+        "venue": "Main Ground",
+        "organizer": "NSS, MSI(T)",
+        "category": "Cultural Fest",
+        "description": "A showcase of stunning artworks by students and professionals.",
+        "image" : "https://d8it4huxumps7.cloudfront.net/uploads/images/festival/gallery/65b6419b229ee_dsc_4230.jpg?d=600x600"
+      },
+      {
+        "id": 7,
+        "title": "GitHub Workshop",
+        "date": "2025-7-12",
+        "time": "3:00 PM",
+        "venue": "Seminar Hall B",
+        "organizer": "MSI Placement Cell",
+        "category": "Education",
+        "description": "A showcase of stunning artworks by students and professionals.",
+        "image" : "https://github.githubassets.com/assets/social-2deb6d7d43e7.jpg"
+      }
+  ]

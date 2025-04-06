@@ -67,7 +67,7 @@ export const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="text-gray-700 hover:text-blue-600">
+                <Link to="/browse-events" className="text-gray-700 hover:text-blue-600">
                   Browse Events
                 </Link>
               </li>
@@ -150,7 +150,7 @@ export const Header = () => {
 
                   </li>
                   <li>
-                    <Link to="/events" className="block text-gray-700 hover:text-blue-600">
+                    <Link to="/browse-events" className="block text-gray-700 hover:text-blue-600">
                       Browse Events
                     </Link>
                   </li>
