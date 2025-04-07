@@ -3,6 +3,7 @@ import { Layout } from "../Components/Layout/Layout";
 import { motion } from "framer-motion";
 import { UpcomingEvents } from "./Event/UpcomingEvents";
 import CompletedEvents from "./Event/CompletedEvents";
+import { NavLink } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -35,12 +36,12 @@ const HomePage = () => {
               transition={{ delay: 0.5, duration: 1 }}
               className="flex flex-col md:flex-row gap-4 justify-center"
             >
-              <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-gray-200 transition">
+              <NavLink to="/browse-events" className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-gray-200 transition">
                 Explore Events
-              </button>
-              <button className="px-6 py-3 bg-purple-700 font-semibold rounded-full hover:bg-purple-800 transition">
+              </NavLink>
+              <NavLink to="/organize-event" className="px-6 py-3 bg-purple-700 font-semibold rounded-full hover:bg-purple-800 transition">
                 Organize an Event
-              </button>
+              </NavLink>
             </motion.div>
           </div>
         </section>
