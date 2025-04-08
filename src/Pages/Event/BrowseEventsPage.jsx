@@ -12,8 +12,8 @@ export const BrowseEventsPage = () => {
   const [completedEvents, setCompletedEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFilterOpened, setIsFilterOpened] = useState(false);
-  const [category, setCategory] = useState("");
-  const [happening, setHappening] = useState("");
+  const [category, setCategory] = useState("All categories");
+  const [happening, setHappening] = useState("Anytime");
 
   const getEvents = async() =>{
     try {
@@ -34,7 +34,7 @@ export const BrowseEventsPage = () => {
 
   useEffect(() =>{
     getEvents();
-  }, [searchTerm]);
+  }, [searchTerm, category, happening]);
 
 
   // initialize fuse.js for searching
@@ -62,6 +62,87 @@ export const BrowseEventsPage = () => {
      if(isFilterOpened) setIsFilterOpened(false);
      else setIsFilterOpened(true);
   }
+
+
+
+
+
+  const filterEventsByHappening = (events, filterType) => {
+
+    const today = new Date();
+    
+    return events.filter(event => {
+      const eventDate = new Date(event.date);
+      
+      switch (filterType) {
+        case "This week":
+          const nextWeek = new Date();
+          nextWeek.setDate(today.getDate() + 7);
+          return eventDate >= today && eventDate <= nextWeek;
+  
+        case "This month":
+          return eventDate.getFullYear() === today.getFullYear() && eventDate.getMonth() === today.getMonth();
+  
+        case "This year":
+          return eventDate.getFullYear() === today.getFullYear();
+  
+        default:
+          return true;
+      }
+    });
+  };
+
+
+
+  const filterEventsByCategory = async() =>{
+    await fetch("/events.json").then((res) => res.json()).then((data) =>{
+      // Filter and sort events based on the selected category
+      const filteredEvts = data.filter(event => event.category == category).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      setAllEvents(filteredEvts);
+   })
+  }
+  
+
+
+  const applyFilters = async() =>{
+    try {
+
+      if(category == "All Categories" && happening == "Anytime"){
+        getEvents();
+        return;
+      }
+      else if(category == "All Categories" && happening != "Anytime"){
+         const filteredEvts =  filterEventsByHappening(allEvents,happening);
+         setAllEvents(filteredEvts);
+      }
+      else if(category != "All Categories" && happening == "Anytime"){
+          filterEventsByCategory();
+      }
+      else{
+         filterEventsByCategory();
+        const filteredEvts =  filterEventsByHappening(allEvents, happening);
+        setAllEvents(filteredEvts);
+      }
+
+      setOpenedTab(1);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  const resetFilters = () =>{
+    try {
+      setCategory("All Categories");
+      setHappening("Anytime");
+      getEvents();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
   return (
     <>
@@ -102,27 +183,27 @@ export const BrowseEventsPage = () => {
                 <div className="flex flex-col">
                   <label className="text-md text-gray-900 mb-1">Category</label>
                   <select value={category} onChange={(e) => setCategory(e.target.value)} className="border p-2 rounded-md text-gray-900 w-40 mb-4">
-                     <option value="">All Categories</option>
-                     <option value="tech">Tech</option>
-                     <option value="tech">Educational</option>
-                     <option value="cultural">Cultural</option>
-                     <option value="sports">Sports</option>
-                     <option value="sports">Gaming</option>
-                     <option value="sports">Others</option>
+                     <option value="All Categories">All Categories</option>
+                     <option value="Tech">Tech</option>
+                     <option value="Educational">Educational</option>
+                     <option value="Cultural">Cultural</option>
+                     <option value="Sports">Sports</option>
+                     <option value="Gaming">Gaming</option>
+                     <option value="Others">Others</option>
                   </select>
                   <label className="text-md text-gray-900 mb-1">Happening</label>
 
                   <select value={happening} onChange={(e) => setHappening(e.target.value)} className="border p-2 rounded-md text-gray-900 w-40 mb-4">
-                     <option value="">Anytime</option>
-                     <option value="tech">This week</option>
-                     <option value="tech">This month</option>
-                     <option value="cultural">This year</option>
+                     <option value="Anytime">Anytime</option>
+                     <option value="This week">This week</option>
+                     <option value="This month">This month</option>
+                     <option value="This year">This year</option>
                   </select>
                 </div>
 
                 <div className="flex gap-2">
-                  <buton className="bg-green-700 w-20 py-2 px-4 rounded-md mt-3 cursor-pointer">Apply</buton>
-                  <buton className="bg-blue-600 w-20 py-2 px-4 rounded-md mt-3 cursor-pointer">Reset</buton>
+                  <button className="bg-green-700 w-20 py-2 px-4 rounded-md mt-3 cursor-pointer" onClick={applyFilters}>Apply</button>
+                  <button className="bg-blue-600 w-20 py-2 px-4 rounded-md mt-3 cursor-pointer" onClick={resetFilters}>Reset</button>
                 </div>
                
              </div>   

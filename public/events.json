@@ -6,7 +6,7 @@
       "time": "10:00 AM",
       "venue": "Main Auditorium",
       "organizer": "MSI Tech Club",
-      "category": "Technology",
+      "category": "Tech",
       "description": "The biggest tech fest of the year with hackathons, workshops, and more!",
       "image" : "https://content.skyscnr.com/m/6428abfa2f4eadc7/original/TechConference_H.jpg?resize=1224%3Aauto"
 
@@ -40,7 +40,7 @@
       "time": "9:00 AM",
       "venue": "Lab 4",
       "organizer": "Software Development Cell",
-      "category": "Technology",
+      "category": "Tech",
       "description": "Compete in teams to solve real-world coding challenges.",
       "image" : "https://res.infoq.com/articles/hackathon-developer-innovation/en/headerimage/generatedHeaderImage-1662578814159.jpg"
     },
@@ -62,7 +62,7 @@
         "time": "3:00 PM",
         "venue": "Main Ground",
         "organizer": "NSS, MSI(T)",
-        "category": "Cultural Fest",
+        "category": "Cultural",
         "description": "A showcase of stunning artworks by students and professionals.",
         "image" : "https://d8it4huxumps7.cloudfront.net/uploads/images/festival/gallery/65b6419b229ee_dsc_4230.jpg?d=600x600"
       },
@@ -73,7 +73,7 @@
         "time": "3:00 PM",
         "venue": "Seminar Hall B",
         "organizer": "MSI Placement Cell",
-        "category": "Education",
+        "category": "Educational",
         "description": "A showcase of stunning artworks by students and professionals.",
         "image" : "https://github.githubassets.com/assets/social-2deb6d7d43e7.jpg"
       }
