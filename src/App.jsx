@@ -8,7 +8,7 @@ import { ForgetPasswordPage } from './Pages/auth/ForgetPasswordPage';
 import { UserDashboard } from './Components/Dashboards/UserDashboard';
 import { AttendedEventsPage } from './Components/Profile/AttendedEventsPage';
 import { BrowseEventsPage } from './Pages/Event/BrowseEventsPage';
-
+import { CreateEventsPage } from './Pages/Event/CreateEventsPage';
 function App() {
 
   return (
@@ -21,7 +21,7 @@ function App() {
         <Route path='/user-dashboard' element={<UserDashboard/>} />
         <Route path='/attended-events' element={<AttendedEventsPage/>} />
         <Route path='/browse-events' element={<BrowseEventsPage/>} />
-
+        <Route path='/create-event' element={<CreateEventsPage/>} />
      </Routes>
 
     </>

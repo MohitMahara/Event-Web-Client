@@ -39,7 +39,7 @@ const HomePage = () => {
               <NavLink to="/browse-events" className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-gray-200 transition">
                 Explore Events
               </NavLink>
-              <NavLink to="/organize-event" className="px-6 py-3 bg-purple-700 font-semibold rounded-full hover:bg-purple-800 transition">
+              <NavLink to="/create-event" className="px-6 py-3 bg-purple-700 font-semibold rounded-full hover:bg-purple-800 transition">
                 Organize an Event
               </NavLink>
             </motion.div>
