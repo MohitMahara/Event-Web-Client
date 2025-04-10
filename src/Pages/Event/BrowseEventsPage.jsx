@@ -3,6 +3,7 @@ import { Layout } from "../../Components/Layout/Layout";
 import { EventCard } from "../../Components/EventComponents/EventCard";
 import { TabBtn } from "../../Components/Btn/TabBtn";
 import Fuse from "fuse.js";
+import NoEventsFound from "./NoEventsFound";
 
 
 export const BrowseEventsPage = () => {
@@ -48,7 +49,7 @@ export const BrowseEventsPage = () => {
 
   const handleSearch = async() =>{
     try{
-
+      if(searchTerm == "") return;
       const filteredItems = fuse.search(searchTerm).map((result) => result.item);
       setAllEvents(filteredItems);
       setOpenedTab(1);
@@ -157,7 +158,7 @@ export const BrowseEventsPage = () => {
 
           <div className="w-sm md:w-6xl mb-2 flex gap-2 md:gap-4 mx-auto h-auto justify-between">
             
-             <div className="w-[90%] flex justify-between rounded-lg bg-white p-2 rounded-xl">
+             <div className="w-[90%] flex justify-between rounded-lg bg-white p-2 rounded-xl gap-2">
                <input type="text" className="w-[95%] p-3 border border-blue-900 hover:border-blue-500 rounded-lg bg-gray-200 focus:outline-none transition duration-200" placeholder="Search for events..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                <button id="filter-btn" className="text-gray-700 cursor-pointer" onClick={handleFilterToggle}>
                   <svg
@@ -214,9 +215,11 @@ export const BrowseEventsPage = () => {
 
       
             <div className="w-full md:w-6xl flex flex-col gap-15 mx-auto min:h-screen mt-8">
-              {openedTab == 1 && allEvents.map((event) => (
-                <EventCard key={event.id} event={event}/>
-              ))}
+              {openedTab == 1 && 
+                 allEvents.map((event) => (
+                    <EventCard key={event.id} event={event}/>
+                 ))
+              }
 
               {openedTab == 2 && upcomingEvents.map((event) => (
                 <EventCard key={event.id} event={event}/>
@@ -225,6 +228,10 @@ export const BrowseEventsPage = () => {
               {openedTab == 3 && completedEvents.map((event) => (
                 <EventCard key={event.id} event={event}/>
               ))}
+
+              {openedTab == 1 && allEvents.length == 0 && <NoEventsFound/>}
+              {openedTab == 2 && upcomingEvents.length == 0 && <NoEventsFound/>}
+              {openedTab == 3 && completedEvents.length == 0 && <NoEventsFound/>}
 
             </div>
    
