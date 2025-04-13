@@ -9,12 +9,15 @@ import { UserDashboard } from './Components/Dashboards/UserDashboard';
 import { AttendedEventsPage } from './Components/Profile/AttendedEventsPage';
 import { BrowseEventsPage } from './Pages/Event/BrowseEventsPage';
 import { CreateEventsPage } from './Pages/Event/CreateEventsPage';
+import { EventPage } from './Pages/Event/EventPage';
+import { NoEventFoundPage } from './Pages/Event/NoEventFoundPage';
 function App() {
 
   return (
     <>
      <Routes>
         <Route path='/' element={<HomePage/>} />
+        <Route path='/:eventslug' element={<EventPage/>} />
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/forget-password' element={<ForgetPasswordPage/>} />
@@ -22,6 +25,8 @@ function App() {
         <Route path='/attended-events' element={<AttendedEventsPage/>} />
         <Route path='/browse-events' element={<BrowseEventsPage/>} />
         <Route path='/create-event' element={<CreateEventsPage/>} />
+        <Route path='noevtfound' element={<NoEventFoundPage/>} />
+
      </Routes>
 
     </>

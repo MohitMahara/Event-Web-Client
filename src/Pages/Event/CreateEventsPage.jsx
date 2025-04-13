@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Layout } from "../../Components/Layout/Layout";
+import slugify  from "slugify";
+import {nanoid} from "nanoid";
 
 
 export const CreateEventsPage = () => {
@@ -15,9 +17,18 @@ export const CreateEventsPage = () => {
     const [image, setImage] = useState("");
 
 
+    const generateSlug= () => {
+      const slug = slugify(title, {lower: true});
+      const id = nanoid(6);
+      return `${slug}-${id}`;
+    };
+
+
     const handleSubmit = async() =>{
         e.preventDefault();
         try {
+
+          const slug = generateSlug();
             
         } catch (error) {
             console.log(error);

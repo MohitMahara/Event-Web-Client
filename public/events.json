@@ -2,6 +2,7 @@
     {
       "id": 1,
       "title": "TechFest 2025",
+      "slug" : "tech-fest-u7b84x",
       "date": "2025-03-10",
       "time": "10:00 AM",
       "venue": "Main Auditorium",
@@ -14,6 +15,7 @@
     {
       "id": 2,
       "title": "AI Conference",
+      "slug" : "ai-conference-b2t84x",
       "date": "2025-04-05",
       "time": "12:30 PM",
       "venue": "Seminar Hall B",
@@ -25,6 +27,7 @@
     {
       "id": 3,
       "title": "Cultural Fest 2025",
+      "slug" : "cultural-fest-y2n8jx",
       "date": "2025-04-15",
       "time": "6:00 PM",
       "venue": "Main Ground",
@@ -36,6 +39,7 @@
     {
       "id": 4,
       "title": "Hackathon 2024",
+      "slug" : "hackathon-2024-t2b8mr",
       "date": "2025-11-20",
       "time": "9:00 AM",
       "venue": "Lab 4",
@@ -47,6 +51,7 @@
     {
       "id": 5,
       "title": "Art Exhibition",
+      "slug" : "hackathon-2024-t2b8mr",
       "date": "2025-10-12",
       "time": "3:00 PM",
       "venue": "Art Gallery",
@@ -58,6 +63,7 @@
     {
         "id": 6,
         "title": "Avensis",
+        "slug" : "avensis-t2b8mr",
         "date": "2024-10-12",
         "time": "3:00 PM",
         "venue": "Main Ground",
@@ -69,6 +75,7 @@
       {
         "id": 7,
         "title": "GitHub Workshop",
+        "slug" : "github-workshop-t2b8mr",
         "date": "2025-7-12",
         "time": "3:00 PM",
         "venue": "Seminar Hall B",

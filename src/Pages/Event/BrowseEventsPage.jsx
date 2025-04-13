@@ -3,7 +3,7 @@ import { Layout } from "../../Components/Layout/Layout";
 import { EventCard } from "../../Components/EventComponents/EventCard";
 import { TabBtn } from "../../Components/Btn/TabBtn";
 import Fuse from "fuse.js";
-import NoEventsFound from "./NoEventsFound";
+import NoEventsFound from "../../Components/EventComponents/NoEventsFound";
 
 
 export const BrowseEventsPage = () => {
