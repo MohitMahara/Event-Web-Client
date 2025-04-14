@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -41,14 +42,14 @@ export const UpcomingEvents = () => {
       >
         {upcomingEvents.map((event) => (
           <SwiperSlide key={event.id} className="p-4">
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <NavLink to={`/${event.slug}`} className="bg-white shadow-lg rounded-lg overflow-hidden">
               <img src={event.image} alt={event.name} className="w-full h-40 object-cover" />
               <div className="p-4">
                 <h3 className="text-lg font-bold">{event.name}</h3>
                 <p className="text-gray-600">{event.date}</p>
                 <p className="text-sm text-gray-700 mt-2">{event.description}</p>
               </div>
-            </div>
+            </NavLink>
           </SwiperSlide>
         ))}
       </Swiper>

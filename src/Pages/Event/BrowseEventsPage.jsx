@@ -217,16 +217,16 @@ export const BrowseEventsPage = () => {
             <div className="w-full md:w-6xl flex flex-col gap-15 mx-auto min:h-screen mt-8">
               {openedTab == 1 && 
                  allEvents.map((event) => (
-                    <EventCard key={event.id} event={event}/>
+                    <EventCard event={event}/>
                  ))
               }
 
               {openedTab == 2 && upcomingEvents.map((event) => (
-                <EventCard key={event.id} event={event}/>
+                <EventCard event={event}/>
               ))}
 
               {openedTab == 3 && completedEvents.map((event) => (
-                <EventCard key={event.id} event={event}/>
+                <EventCard event={event}/>
               ))}
 
               {openedTab == 1 && allEvents.length == 0 && <NoEventsFound/>}
