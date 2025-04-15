@@ -43,8 +43,7 @@ export const EventPage = () =>{
         <>
          <Layout>
             <div className="w-full md:m-5xl mx-auto">
-                <h1>{event.title}</h1>
-
+               
 
 
 
