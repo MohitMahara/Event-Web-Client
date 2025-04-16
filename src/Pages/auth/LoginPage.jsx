@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AuthHeader } from "./AuthHeader";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UseFirebase } from "../../Contexts/firebaseContext";
@@ -139,7 +140,7 @@ export const LoginPage = () =>{
 
         </form>
         <p className="text-sm text-gray-600 mt-4 text-center">
-          Don't have an account? <a href="/register" className="text-blue-500">Register</a>
+          Don't have an account? <Link to="/register" className="text-blue-500">Register</Link>
         </p>
       </div>
     </div>

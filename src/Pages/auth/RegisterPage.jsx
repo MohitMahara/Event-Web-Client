@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { AuthHeader } from "./AuthHeader";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const RegisterPage = () => {
 
@@ -86,9 +87,9 @@ export const RegisterPage = () => {
           </form>
           <p className="text-sm text-gray-600 mt-4 text-center">
             Already have an account?
-            <a href="/login" className="text-blue-500">
+            <Link to="/login" className="text-blue-500">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>
