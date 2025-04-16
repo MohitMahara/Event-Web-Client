@@ -53,7 +53,7 @@ export const ForgetPasswordPage = () =>{
 
     try {
 
-      const res = await axios(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/reset-password`, {
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/reset-password`, {
         email, password
       });
 
