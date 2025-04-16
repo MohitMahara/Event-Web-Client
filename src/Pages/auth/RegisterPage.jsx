@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { AuthHeader } from "./authHeader";
+import { AuthHeader } from "./AuthHeader";
 import { useNavigate } from "react-router-dom";
 
 export const RegisterPage = () => {
