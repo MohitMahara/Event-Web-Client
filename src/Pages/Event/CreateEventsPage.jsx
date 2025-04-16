@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Layout } from "../../Components/Layout/Layout";
 import slugify  from "slugify";
 import {nanoid} from "nanoid";
+import toast from "react-hot-toast";
 
 
 export const CreateEventsPage = () => {
@@ -31,7 +32,18 @@ export const CreateEventsPage = () => {
           const slug = generateSlug();
             
         } catch (error) {
-            console.log(error);
+          if (error.response) {
+            const status = error.response.status;
+            const msg = error.response.data?.msg || 'Something went wrong';
+      
+            if (status === 400 || status === 404) {
+              toast.error(msg); 
+            } else {
+              toast.error('Unexpected error. Please try again.');
+            }
+          } else {
+            toast.error('Network error. Please check your connection.');
+          }
         }
     }
 

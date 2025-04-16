@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AuthHeader } from "./AuthHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const ForgetPasswordPage = () =>{
   const [email, setEmail] = useState("");
@@ -24,7 +25,18 @@ export const ForgetPasswordPage = () =>{
         setMsg("Please enter the OTP sent to your registered email to continue.");
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const status = error.response.status;
+        const msg = error.response.data?.msg || 'Something went wrong';
+  
+        if (status === 400 || status === 404) {
+          toast.error(msg); 
+        } else {
+          toast.error('Unexpected error. Please try again.');
+        }
+      } else {
+        toast.error('Network error. Please check your connection.');
+      }
     }
   }
 
@@ -43,7 +55,18 @@ export const ForgetPasswordPage = () =>{
         setMsg("Create a new password");
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const status = error.response.status;
+        const msg = error.response.data?.msg || 'Something went wrong';
+  
+        if (status === 400 || status === 404) {
+          toast.error(msg); 
+        } else {
+          toast.error('Unexpected error. Please try again.');
+        }
+      } else {
+        toast.error('Network error. Please check your connection.');
+      }
     }
   }
 
@@ -63,7 +86,18 @@ export const ForgetPasswordPage = () =>{
       }
       
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const status = error.response.status;
+        const msg = error.response.data?.msg || 'Something went wrong';
+  
+        if (status === 400 || status === 404) {
+          toast.error(msg); 
+        } else {
+          toast.error('Unexpected error. Please try again.');
+        }
+      } else {
+        toast.error('Network error. Please check your connection.');
+      }
     }
   }
 

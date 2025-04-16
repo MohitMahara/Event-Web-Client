@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { AuthHeader } from "./AuthHeader";
 import { NavLink, Link } from "react-router-dom";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UseFirebase } from "../../Contexts/firebaseContext";
+import toast from "react-hot-toast";
 
 export const LoginPage = () =>{
 
@@ -31,12 +31,30 @@ export const LoginPage = () =>{
 
         localStorage.setItem("msi", JSON.stringify(res.data));
 
-        navigate('/');
+        toast.success("Login successful");
 
+        setTimeout(() => {
+          navigate('/');
+
+        }, 1500)
+       }
+       else{
+         toast.error(res.data.message);
        }
 
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const status = error.response.status;
+        const msg = error.response.data?.msg || 'Something went wrong';
+  
+        if (status === 400 || status === 404) {
+          toast.error(msg); 
+        } else {
+          toast.error('Unexpected error. Please try again.');
+        }
+      } else {
+        toast.error('Network error. Please check your connection.');
+      }
     }
   }
 
@@ -80,7 +98,18 @@ export const LoginPage = () =>{
 
 
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const status = error.response.status;
+        const msg = error.response.data?.msg || 'Something went wrong';
+  
+        if (status === 400 || status === 404) {
+          toast.error(msg); 
+        } else {
+          toast.error('Unexpected error. Please try again.');
+        }
+      } else {
+        toast.error('Network error. Please check your connection.');
+      }
     }
   };
 

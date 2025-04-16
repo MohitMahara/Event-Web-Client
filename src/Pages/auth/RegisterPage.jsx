@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { AuthHeader } from "./AuthHeader";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const RegisterPage = () => {
 
@@ -21,11 +22,25 @@ export const RegisterPage = () => {
 
        if(res.data.success){
           alert('user registered successfully');
+          toast.success("Registration successfull");
+          setTimeout(() =>{
           navigate('/login');
+          }, 1000)
        }
 
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const status = error.response.status;
+        const msg = error.response.data?.msg || 'Something went wrong';
+  
+        if (status === 400 || status === 404) {
+          toast.error(msg); 
+        } else {
+          toast.error('Unexpected error. Please try again.');
+        }
+      } else {
+        toast.error('Network error. Please check your connection.');
+      }
     }
   }
 

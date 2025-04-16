@@ -11,10 +11,12 @@ import { BrowseEventsPage } from './Pages/Event/BrowseEventsPage';
 import { CreateEventsPage } from './Pages/Event/CreateEventsPage';
 import { EventPage } from './Pages/Event/EventPage';
 import { NoEventFoundPage } from './Pages/Event/NoEventFoundPage';
+import { Toaster } from 'react-hot-toast';
 function App() {
 
   return (
     <>
+     <Toaster position='top-center' toastOptions={{duration : 1500}}/>
      <Routes>
         <Route path='/' element={<HomePage/>} />
         <Route path='/:eventslug' element={<EventPage/>} />
