@@ -34,7 +34,7 @@ export const ForgetPasswordPage = () =>{
 
     try {
 
-      const res = await axios(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/verify-otp`, {
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/verify-otp`, {
         otp, email
       });
 
@@ -76,7 +76,7 @@ export const ForgetPasswordPage = () =>{
           <div className="bg-white rounded-lg shadow-lg w-full max-w-md">
             <h2 className="text-2xl font-bold text-center text-gray-800 my-4">Reset Password</h2>
             <p className="text-md px-2 text-center text-gray-700">{msg}</p>
-
+            {/* Email verification and OTP generation */}
             {step == 1 &&           
              <form className="p-8">
                  <div className="mb-4">
@@ -96,7 +96,9 @@ export const ForgetPasswordPage = () =>{
                  >Send OTP</button>
              </form> 
              }
- 
+
+           {/* OTP Verification */}
+
            {step == 2 &&           
              <form className="p-8">
                  <div className="mb-4">
@@ -118,6 +120,7 @@ export const ForgetPasswordPage = () =>{
              }
 
 
+           {/* Password reset */}
 
           {step == 3 &&           
              <form className="p-8">
