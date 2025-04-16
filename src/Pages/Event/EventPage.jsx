@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const EventPage = () =>{
     const {eventslug} = useParams();
-    const [event, setEvent] = useState({});
+    const [event, setEvent] = useState([]);
     const navigate = useNavigate();
 
 
@@ -39,12 +39,13 @@ export const EventPage = () =>{
     // }
 
 
+
+
     return (
         <>
          <Layout>
-            <div className="w-full md:m-5xl mx-auto">
-               
-
+            <div className="w-full md:m-5xl mx-auto px-4 py-4">
+               <h2 className="text-4xl text-gray-900 font-bold text-center">{event[0].title}</h2>
 
 
 
