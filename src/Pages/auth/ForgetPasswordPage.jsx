@@ -10,21 +10,33 @@ export const ForgetPasswordPage = () =>{
   const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [msg, setMsg] = useState("Enter your registered email to receive an OTP for resetting your password.");
+  const [btnText, setBtnText] = useState("Send OTP");
   const navigate = useNavigate();
 
 
   const generateOtp = async(e) =>{
     e.preventDefault();
     try {
+
+      if(!email){
+        toast.error("Please enter your email address");
+        return;
+      }
+
+      setBtnText("Generating...");
+
       const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/generate-otp`, {
         email
       });
 
       if(res.data.success){
+        setBtnText("Verify OTP");
         setStep(2);
         setMsg("Please enter the OTP sent to your registered email to continue.");
       }
     } catch (error) {
+      setBtnText("Send OTP");
+
       if (error.response) {
         const status = error.response.status;
         const msg = error.response.data?.msg || 'Something went wrong';
@@ -46,15 +58,25 @@ export const ForgetPasswordPage = () =>{
 
     try {
 
+      if(!otp){
+        toast.error("Please enter the OTP sent to your email");
+        return;
+      }
+
+      setBtnText("Verifying...");
+
       const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/verify-otp`, {
         otp, email
       });
 
       if(res.data.success){
         setStep(3);
+        setBtnText("Reset Password");
         setMsg("Create a new password");
       }
     } catch (error) {
+      setBtnText("Verify OTP");
+
       if (error.response) {
         const status = error.response.status;
         const msg = error.response.data?.msg || 'Something went wrong';
@@ -86,6 +108,8 @@ export const ForgetPasswordPage = () =>{
       }
       
     } catch (error) {
+      setBtnText("Reset Password");
+
       if (error.response) {
         const status = error.response.status;
         const msg = error.response.data?.msg || 'Something went wrong';
@@ -127,7 +151,7 @@ export const ForgetPasswordPage = () =>{
                  type="submit"
                  className="w-full bg-blue-500 text-white py-2 rounded-md mt-4 hover:bg-blue-600 transition"
                  onClick={generateOtp}
-                 >Send OTP</button>
+                 >{btnText}</button>
              </form> 
              }
 
@@ -149,7 +173,7 @@ export const ForgetPasswordPage = () =>{
                  type="submit"
                  className="w-full bg-blue-500 text-white py-2 rounded-md mt-4 hover:bg-blue-600 transition"
                  onClick={verifyOtp}
-                 >Verify OTP</button>
+                 >{btnText}</button>
              </form> 
              }
 
@@ -172,7 +196,7 @@ export const ForgetPasswordPage = () =>{
                  type="submit"
                  className="w-full bg-blue-500 text-white py-2 rounded-md mt-4 hover:bg-blue-600 transition"
                  onClick={resetPassword}
-                 >Submit</button>
+                 >{btnText}</button>
              </form> 
              }
 
