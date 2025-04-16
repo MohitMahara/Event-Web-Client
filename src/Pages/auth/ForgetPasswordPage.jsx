@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthHeader } from "./authHeader";
+import { AuthHeader } from "./AuthHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
