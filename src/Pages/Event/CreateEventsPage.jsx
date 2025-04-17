@@ -15,7 +15,7 @@ export const CreateEventsPage = () => {
     const [description, setDescription] = useState("");
     const [imgPreview , setImgPreview] = useState("");
     const [contact, setContact] = useState("");
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtz2lcitXMr5fjY8WlXVsLvPk2mXjtKeLb4Q&s");
 
 
     const generateSlug= () => {
@@ -30,6 +30,8 @@ export const CreateEventsPage = () => {
         try {
 
           const slug = generateSlug();
+
+
             
         } catch (error) {
           if (error.response) {

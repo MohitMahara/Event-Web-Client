@@ -2,20 +2,40 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EventCard } from "../../Components/EventComponents/EventCard";
 import { NavLink } from "react-router-dom";
-
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const CompletedEvents = () => {
 
   const [completedEvents, setCompletedEvents]  = useState([]);
 
-    const getCompletedEvents = async () =>{
-          await fetch("/events.json").then((res) => res.json()).then((data) => {
-            const currentTime = new Date().getTime();
-            const completedEvents = data.filter(event => new Date(event.date).getTime() < currentTime).
-            sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).
-            slice(0, 6);
-            setCompletedEvents(completedEvents);
-       })
+  const getCompletedEvents = async () => {
+     try {
+
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_API}/api/v1/events/get-all-events`);
+        if(res.data.success){
+          const currentTime = new Date();
+          const filteredEvents = res.data.allEvents.filter(event => new Date(event.date) < currentTime).sort((a, b) => new Date(b.date) -  new Date(a.date) ).slice(0, 6);
+          setCompletedEvents(filteredEvents);
+        }
+        else{
+          toast.error(res.data.message);
+        }
+    
+        } catch (error) {
+          if(error.response){
+            const status = error.response.status;
+            const msg = error.response.data?.msg || 'Something went wrong';
+      
+            if (status === 400 || status === 404) {
+              toast.error(msg); 
+            } else {
+              toast.error('Unexpected error. Please try again.');
+            }
+          }else{
+            toast.error('Network error. Please check your connection.');
+          }
+        }
     }
   
     useEffect(() =>{

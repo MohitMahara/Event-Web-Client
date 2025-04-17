@@ -4,6 +4,7 @@ import { EventCard } from "../../Components/EventComponents/EventCard";
 import { TabBtn } from "../../Components/Btn/TabBtn";
 import Fuse from "fuse.js";
 import NoEventsFound from "../../Components/EventComponents/NoEventsFound";
+import axios from "axios";
 
 
 export const BrowseEventsPage = () => {
@@ -18,18 +19,38 @@ export const BrowseEventsPage = () => {
 
   const getEvents = async() =>{
     try {
-       await fetch("/events.json").then((res) => res.json()).then((data) =>{
-          const currentTime = new Date().getTime();
-          // Filter and sort events based on the current time
-          const completedEvts = data.filter(event => new Date(event.date).getTime() < currentTime).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-          const upcomingEvts  = data.filter(event => new Date(event.date).getTime() > currentTime).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-          
-          setAllEvents(data);
-          setCompletedEvents(completedEvts);
-          setUpcomingEvents(upcomingEvts);
-       })
+
+          const res = await axios.get(`${import.meta.env.VITE_SERVER_API}/api/v1/events/get-all-events`);
+
+          if(res.data.success){
+            const currentTime = new Date();
+            // Filter and sort events based on the current time
+            const completedEvts = res.data.allEvents.filter(event => new Date(event.date) < currentTime).sort((a, b) => new Date(b.date) - new Date(a.date));
+            const upcomingEvts  = res.data.allEvents.filter(event => new Date(event.date) > currentTime).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            setAllEvents(res.data.allEvents);
+            setCompletedEvents(completedEvts);
+            setUpcomingEvents(upcomingEvts);
+          }
+          else {
+            toast.error(res.data.msg);
+          }
+
     } catch (error) {
-      console.log(error);
+       if(error.response){
+           const status = error.response.status;
+           const msg = error.response.data?.msg || "Something went wrong";
+
+           if(status == 400 || status == 404){
+             toast.error(msg);
+           }
+           else{
+             toast.error("Unexpected Error. Please try again");
+           }
+       }
+       else{
+        toast.error("Network error. Please check your connection");
+       }
     }
   }
 
@@ -55,7 +76,7 @@ export const BrowseEventsPage = () => {
       setOpenedTab(1);
 
     }catch{
-      console.log(error);
+      toast.error(error.message);
     }
   }
 
@@ -63,8 +84,6 @@ export const BrowseEventsPage = () => {
      if(isFilterOpened) setIsFilterOpened(false);
      else setIsFilterOpened(true);
   }
-
-
 
 
 
@@ -96,11 +115,32 @@ export const BrowseEventsPage = () => {
 
 
   const filterEventsByCategory = async() =>{
-    await fetch("/events.json").then((res) => res.json()).then((data) =>{
-      // Filter and sort events based on the selected category
-      const filteredEvts = data.filter(event => event.category == category).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-      setAllEvents(filteredEvts);
-   })
+   try {
+       const res = await axios.get(`${import.meta.env.VITE_SERVER_API}/api/v1/events/get-all-events`);
+
+       if(res.data.success){
+          const filteredEvts = res.data.allEvents.filter(event => event.category == category).sort((a, b) => new Date(a.date) - new Date(b.date));
+          setAllEvents(filteredEvts);
+      }
+      else{
+        toast.error(res.data.msg);
+      }
+   } catch (error) {
+        if(error.response){
+          const status = error.response.status;
+          const msg = error.response.data?.msg || "Something went wrong";
+
+          if(status == 400 || status == 404){
+             toast.error(msg);
+          }
+          else{
+             toast.error("Unexpected Error. Please try again");
+          }
+        }
+       else{
+         toast.error("Network error. Please check your connection");
+       }
+     }
   }
   
 

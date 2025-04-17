@@ -1,28 +1,54 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { UseFirebase } from "../../Contexts/firebaseContext"
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export const AttendedEvents = () =>{
     const {userInfo} = UseFirebase();
+    const [attendedEvts, setAttendedEvts] = useState([]);
 
-    const event = {
-       image : 'https://content.skyscnr.com/m/6428abfa2f4eadc7/original/TechConference_H.jpg?resize=1224%3Aauto',
-       name : 'Avensis',
-       date : '2025-1-23',
-       description : "Avensis is a tech event organized by sdc with collaboration with msi placement cell."
+    const getAttendedEvents = async() =>{
+      try{
+
+       const userId = userInfo?.user?._id;
+
+       const res = await axios.get(`${import.meta.env.VITE_SERVER_API}/api/v1/events/attended-events/${userId}`);
+
+       if(res.data.success){
+          setAttendedEvts(res.data.attendedEvents);
+       }
+       else{
+          toast.error(res.data.msg);
+       }
+       
+      }catch(error){
+
+        if(error.response){
+          const status = error.response.status;
+          const msg = error.response.data?.msg || "Something went wrong";
+
+          if(status == 400 || status == 404){
+            toast.error(msg);
+          }
+          else{
+            toast.error("Unexpected Error. Please try again");
+          }
+      }
+      else{
+       toast.error("Network error. Please check your connection");
+      }
+      }
     }
+
+    useEffect(() =>{
+       getAttendedEvents();
+    }, [])
 
 
     return (
         <>
        <div className="w-full flex flex-col items-center">
-        
-           <EventCard event={event} />
-           <EventCard event={event} />
-           <EventCard event={event} />
-           <EventCard event={event} />
-           <EventCard event={event} />
-           <EventCard event={event} />
-
+         {attendedEvts?.map((event) =>  <EventCard event={event} /> )}
         </div>
         </>
     )

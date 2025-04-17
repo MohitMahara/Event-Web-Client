@@ -4,6 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 export const UpcomingEvents = () => {
@@ -11,13 +13,34 @@ export const UpcomingEvents = () => {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
   const getUpcomingEvents = async () =>{
-        await fetch("/events.json").then((res) => res.json()).then((data) => {
-          const currentTime = new Date().getTime();
-          const upcomingEvents = data.filter(event => new Date(event.date).getTime() > currentTime).
-          sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).
-          slice(0, 6);
-          setUpcomingEvents(upcomingEvents);
-     })
+    try {
+
+    const res = await axios.get(`${import.meta.env.VITE_SERVER_API}/api/v1/events/get-all-events`);
+
+    if(res.data.success){
+      const currentTime = new Date();
+      const filteredEvts = res.data.allEvents.filter(event => new Date(event.date) > currentTime).sort((a, b) => new Date(a.date) -  new Date (b.date) ).slice(0, 6);
+      setUpcomingEvents(filteredEvts);
+    }
+    else{
+      toast.error(res.data.message);
+    }
+
+    } catch (error) {
+      if(error.response){
+        const status = error.response.status;
+        const msg = error.response.data?.msg || 'Something went wrong';
+  
+        if (status === 400 || status === 404) {
+          toast.error(msg); 
+        } else {
+          toast.error('Unexpected error. Please try again.');
+        }
+      }else{
+        toast.error('Network error. Please check your connection.');
+      }
+    }
+
   }
 
   useEffect(() =>{
