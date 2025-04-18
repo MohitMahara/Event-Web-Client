@@ -26,6 +26,7 @@ export const FirebaseContext = createContext();
 export const FirebaseProvider = ({ children }) => {
 
   const auth = getAuth();
+  const [loading, setLoading] = useState(true);
 
   const [userInfo, setUserInfo] = useState({
     user: null,
@@ -58,13 +59,16 @@ export const FirebaseProvider = ({ children }) => {
         token: parseData.token,
       });
     }
+
+    setLoading(false);
+
   }, []);
 
 
 
   return (
-    <FirebaseContext.Provider value={{ userInfo, setUserInfo, signInGoogle}}>
-      {children}
+    <FirebaseContext.Provider value={{ userInfo, loading, setUserInfo, signInGoogle}}>
+      {!loading && children}
     </FirebaseContext.Provider>
   );
 };

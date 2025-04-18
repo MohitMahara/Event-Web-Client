@@ -20,7 +20,18 @@ export const UpcomingEvents = () => {
     if(res.data.success){
       const currentTime = new Date();
       const filteredEvts = res.data.allEvents.filter(event => new Date(event.date) > currentTime).sort((a, b) => new Date(a.date) -  new Date (b.date) ).slice(0, 6);
-      setUpcomingEvents(filteredEvts);
+      // Format the date to "MM-DD-YY"
+
+      const formattedEvents = filteredEvts.map(event => ({
+        ...event,
+        date: new Date(event.date).toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit',
+          year: 'numeric',
+        })
+      }));
+      
+      setUpcomingEvents(formattedEvents);
     }
     else{
       toast.error(res.data.message);
@@ -47,6 +58,8 @@ export const UpcomingEvents = () => {
     getUpcomingEvents();
   }, []);
 
+
+
   return (
     <div className="w-full max-w-5xl mx-auto my-10">
       <h2 className="text-3xl font-bold text-center mb-6">Upcoming Events</h2>
@@ -64,13 +77,13 @@ export const UpcomingEvents = () => {
         className="w-full pb-10"
       >
         {upcomingEvents.map((event) => (
-          <SwiperSlide key={event.id} className="p-4">
-            <NavLink to={`/${event.slug}`} className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img src={event.image} alt={event.name} className="w-full h-40 object-cover" />
+          <SwiperSlide key={event?.id} className="p-4">
+            <NavLink to={`/${event?.slug}`} className="bg-white shadow-lg rounded-lg overflow-hidden">
+              <img src={event?.image} alt={event?.name} className="w-full h-40 object-cover" />
               <div className="p-4">
-                <h3 className="text-lg font-bold">{event.name}</h3>
-                <p className="text-gray-600">{event.date}</p>
-                <p className="text-sm text-gray-700 mt-2">{event.description}</p>
+                <h3 className="text-lg font-bold">{event?.name}</h3>
+                <p className="text-gray-600">{event?.date}</p>
+                <p className="text-sm text-gray-700 mt-2">{event?.description?.slice(0, 100) + "..."}</p>
               </div>
             </NavLink>
           </SwiperSlide>

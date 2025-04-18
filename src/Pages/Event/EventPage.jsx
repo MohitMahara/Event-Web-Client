@@ -13,6 +13,12 @@ export const EventPage = () =>{
     const {userInfo, setUserInfo} = UseFirebase();
     const [isRegistered, setIsRegistered] = useState(false);
 
+    const eventDate = event?.date ? new Date(event.date).toLocaleDateString('en-US', {
+      month: 'short',  
+      day: '2-digit',   
+      year: 'numeric'
+    }): null;
+
 
     const getEvent = async() =>{
       try {
@@ -51,10 +57,11 @@ export const EventPage = () =>{
     }, [])
 
 
-    const handleRegister = async() =>{
+    const handleRegister = async(e) =>{
+      e.preventDefault();
       try {
 
-         if(!userInfo?.token) {
+         if(userInfo?.token == null) {
             toast.error("SignUp first");
             return
          }
@@ -103,11 +110,14 @@ export const EventPage = () =>{
                 <div className="w-1/4 h-100 bg-white  p-4 rounded-lg shadow-lg">
                     <h3 className="text-xl text-gray-800  text-center font-bold">Event Details</h3>
                      <p className="text-gray-700 text-lg mt-2">Happening on</p>
-                     <p className="text-gray-900 text-md mt-2 font-bold">{event?.date}</p>
+                     <p className="text-gray-900 text-md mt-2 font-bold">{eventDate}</p>
                      <p className="text-gray-700 text-lg mt-2">Venue</p>
                      <p className="text-gray-900 text-md mt-2 font-bold">{event?.venue}</p>
                      <p className="text-gray-700 text-lg mt-2">Organizer</p>
                      <p className="text-gray-900 text-md mt-2 font-bold">{event?.organizer}</p>
+                     <p className="text-gray-700 text-lg mt-2">Registrations</p>
+                     <p className="text-gray-900 text-md mt-2 font-bold">{event?.registeredUsers.length}</p>
+
 
                      {new Date(event?.date) > new Date() ?
                       <button className="bg-blue-500 px-4 py-2 rounded-lg text-gray-100 w-full mt-4 text-lg cursor-pointer" onClick={handleRegister}>{isRegistered ? "Registered" : "Register" }</button>

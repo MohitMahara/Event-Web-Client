@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-     <Toaster position='top-center' toastOptions={{duration : 1500}}/>
+     <Toaster position='top-center' toastOptions={{ default : { duration : 1500} }}/>
      <Routes>
         <Route path='/' element={<HomePage/>} />
         <Route path='/:eventslug' element={<EventPage/>} />

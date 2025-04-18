@@ -5,6 +5,14 @@ import { Link } from "react-router-dom";
 
 
 export const EventCard = ({ event }) => {
+
+  const eventDate = new Date(event.date).toLocaleDateString('en-US', {
+    month : "short",
+    day : "2-digit",
+    year : "numeric",
+  })
+
+
   return (
     <>
       <NavLink to={`/${event.slug}`} key={event.id} className="flex flex-col md:flex-row h-auto md:h-90 w-full bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-200 p-2 cursor-pointer" >
@@ -13,9 +21,9 @@ export const EventCard = ({ event }) => {
           <h3 className="text-3xl font-bold text-gray-900 mb-2">
             {event.title}
           </h3>
-          <p className="text-gray-600 mt-2">{event.description}</p>
+          <p className="text-gray-600 mt-2">{event.description.slice(0,100) + "...."}</p>
           <div className="flex flex-col items-left mt-5 text-gray-500 text-sm h-auto">
-            <p>{event.date}</p>
+            <p>{eventDate}</p>
             <div className="flex gap-2 items-center mt-2">
               <FaLocationDot />
               <p>{event.venue}</p>

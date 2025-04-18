@@ -3,9 +3,16 @@ import { Layout } from "../../Components/Layout/Layout";
 import slugify  from "slugify";
 import {nanoid} from "nanoid";
 import toast from "react-hot-toast";
+import { UseFirebase } from "../../Contexts/firebaseContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 export const CreateEventsPage = () => {
+    
+    const navigate = useNavigate();
+
+    const {userInfo} = UseFirebase();
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("10:00");
@@ -15,7 +22,7 @@ export const CreateEventsPage = () => {
     const [description, setDescription] = useState("");
     const [imgPreview , setImgPreview] = useState("");
     const [contact, setContact] = useState("");
-    const [image, setImage] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtz2lcitXMr5fjY8WlXVsLvPk2mXjtKeLb4Q&s");
+    const [image, setImage] = useState(null);
 
 
     const generateSlug= () => {
@@ -25,14 +32,42 @@ export const CreateEventsPage = () => {
     };
 
 
-    const handleSubmit = async() =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
         try {
 
+          if(!title || !date || !time || !category || !venue || !organizer || !description || !image || !contact){
+            toast.error("Please fill all the fields");
+            return;
+          }
+
+          const formData = new FormData(); 
           const slug = generateSlug();
+          const createdBy = userInfo?.user?._id;
+
+          formData.append("title", title);
+          formData.append("slug", slug);
+          formData.append("date", date);
+          formData.append("time", time);
+          formData.append("category", category);
+          formData.append("venue", venue);
+          formData.append("organizer", organizer);
+          formData.append("description", description);
+          formData.append("image", image);
+          formData.append("contact", contact);
+          formData.append("createdBy", createdBy);
 
 
-            
+          const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/events/create-event`, formData);
+
+          if(res.data.success){
+            toast.success(res.data.msg);
+            navigate("/");
+          }
+          else{
+            toast.error(res.data.msg);
+          }
+
         } catch (error) {
           if (error.response) {
             const status = error.response.status;

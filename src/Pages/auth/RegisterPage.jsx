@@ -3,29 +3,37 @@ import { AuthHeader } from "./AuthHeader";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export const RegisterPage = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
 
   const navigate = useNavigate();
 
 
-  const handleSubmit = async () =>{
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
     try {
+       if(!name || !email || !password){
+          toast.error("Please fill all the fields");
+          return;
+       }
+
        const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/auth/register`, {
-        name, email, password, role
+        name, email, password
        });
 
        if(res.data.success){
-          alert('user registered successfully');
-          toast.success("Registration successfull");
+          toast.success("Registered Successfully");
           setTimeout(() =>{
           navigate('/login');
-          }, 1000)
+          }, 1500)
+       }
+       else{
+        toast.error(res.data.msg);
        }
 
     } catch (error) {
@@ -82,14 +90,6 @@ export const RegisterPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-            </div>
-
-            <div className="mb-4">
-             <label className="block text-gray-700">Role</label>
-             <select value={role} onChange = {(e) => setRole(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-               <option value="user">User</option>
-               <option value="admin">Organizer</option>
-             </select>
             </div>
 
             <button
