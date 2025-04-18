@@ -54,7 +54,7 @@ export const EventPage = () =>{
 
     useEffect(() =>{
         getEvent();
-    }, [])
+    }, [isRegistered])
 
 
     const handleRegister = async(e) =>{
