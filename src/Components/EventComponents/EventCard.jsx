@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
-import { Link } from "react-router-dom";
 
 
 export const EventCard = ({ event }) => {
