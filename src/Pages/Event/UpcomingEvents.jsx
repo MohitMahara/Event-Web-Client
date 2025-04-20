@@ -82,7 +82,7 @@ export const UpcomingEvents = () => {
               <img src={event?.image} alt={event?.name} className="w-full h-40 object-cover" />
               <div className="p-4">
                 <h3 className="text-lg font-bold">{event?.name}</h3>
-                <p className="text-gray-600">{event?.date}</p>
+                <p className="text-gray-900 font-bold ">{event?.date}</p>
                 <p className="text-sm text-gray-700 mt-2">{event?.description?.slice(0, 100) + "..."}</p>
               </div>
             </NavLink>

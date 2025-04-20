@@ -45,6 +45,9 @@ export const AttendedEventsPage = () =>{
                     <NavLink to="/user-dashboard" className="mb-3 bg-gray-300 p-2 w-full text-center rounded-sm text-md hover:bg-gray-500 cursor-pointer hover:text-white transition duration-200">Profile</NavLink>
              
                      <NavLink to="/attended-events" className="mb-3 bg-gray-300 p-2 w-full text-center rounded-sm text-md hover:bg-gray-500 cursor-pointer hover:text-white transition duration-200">Attended Events</NavLink>
+
+                     <NavLink to="/organized-events" className="mb-3 bg-gray-300 p-2 w-full text-center rounded-sm text-md hover:bg-gray-500 cursor-pointer hover:text-white transition duration-200">Organized Events</NavLink>
+
                </div>
 
 
