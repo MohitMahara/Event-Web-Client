@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../Components/Layout/Layout";
-import {nanoid} from "nanoid";
 import toast from "react-hot-toast";
-import { UseFirebase } from "../../Contexts/firebaseContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
-export const CreateEventsPage = () => {
-    
+export const UpdateEventsPage = () => {
+
+    const {eventslug} = useParams();
+    const [event, setEvent] = useState(null);
     const navigate = useNavigate();
 
-    const {userInfo} = UseFirebase();
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
-    const [time, setTime] = useState("10:00");
+    const [time, setTime] = useState("");
     const [category, setCategory] = useState("");
     const [venue, setVenue] = useState("");
     const [organizer, setOrganizer] = useState("");
@@ -22,35 +21,57 @@ export const CreateEventsPage = () => {
     const [imgPreview , setImgPreview] = useState("");
     const [contact, setContact] = useState("");
     const [image, setImage] = useState(null);
+    
+ 
+
+    const getEventDetail = async() =>{
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_SERVER_API}/api/v1/events/get-event/${eventslug}`);
+            if(res.data.success){
+                setEvent(res.data.event);
+                const evt = res.data.event;
+                setTitle(evt?.title);
+                setDate(new Date(evt?.date).toISOString().split("T")[0]);
+                setTime(evt?.time);
+                setCategory(evt?.category);
+                setVenue(evt?.venue);
+                setOrganizer(evt?.organizer);
+                setDescription(evt?.description);
+                setContact(evt?.contact);
+                setImgPreview(evt?.image);
+            }
+            else{
+                toast.error(res.data.msg);
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
+
+    useEffect(() => {
+        getEventDetail();
+    },[])
 
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
         try {
 
-          if(!title || !date || !time || !category || !venue || !organizer || !description || !image || !contact){
-            toast.error("Please fill all the fields");
-            return;
-          }
-
           const formData = new FormData(); 
-          const slug = "evt-" + nanoid();
-          const createdBy = userInfo?.user?._id;
 
           formData.append("title", title);
-          formData.append("slug", slug);
           formData.append("date", date);
           formData.append("time", time);
           formData.append("category", category);
           formData.append("venue", venue);
           formData.append("organizer", organizer);
           formData.append("description", description);
-          formData.append("image", image);
+          if(image != null) formData.append("image", image);
           formData.append("contact", contact);
-          formData.append("createdBy", createdBy);
 
 
-          const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/v1/events/create-event`, formData);
+          const res = await axios.put(`${import.meta.env.VITE_SERVER_API}/api/v1/events/update-event/${event?._id}`, formData);
 
           if(res.data.success){
             toast.success(res.data.msg);
@@ -76,14 +97,11 @@ export const CreateEventsPage = () => {
         }
     }
 
-    const handleImgUpload = (e) =>{
-        const img = e.target.files[0];
-
-        if(img){
-        setImage(img);
-        const imgUrl = URL.createObjectURL(img);
-        setImgPreview(imgUrl);  
-        }
+    const handleFileUpload = (e) =>{
+        const fileInput = e.target.files[0];
+        const fileURL = URL.createObjectURL(fileInput);
+        setImgPreview(fileURL);
+        setImage(fileInput);
     }
 
   return (
@@ -93,7 +111,7 @@ export const CreateEventsPage = () => {
         <div className="max-w-4xl mx-auto mt-4 bg-white py-4 px-8">
   
           <h2 className="text-3xl font-semibold text-center my-6">
-            Organize an Event
+            Update Event
           </h2> 
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -184,9 +202,8 @@ export const CreateEventsPage = () => {
             <input
               type="file"
               accept="image/*"
-              onChange={handleImgUpload}
               className="w-full p-2 border border-gray-400 rounded"
-              required
+              onChange={handleFileUpload}
             />
             {imgPreview && <>
                <div className="w-full h-90 mb-4">
@@ -195,11 +212,8 @@ export const CreateEventsPage = () => {
             
             </>}
 
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-500"
-            >
-              Create Event
+            <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-500">
+              Save Changes
             </button>
           </form>
           </div>

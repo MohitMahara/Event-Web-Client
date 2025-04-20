@@ -13,6 +13,7 @@ import { EventPage } from './Pages/Event/EventPage';
 import { NoEventFoundPage } from './Pages/Event/NoEventFoundPage';
 import { Toaster } from 'react-hot-toast';
 import {OrganizedEventsPage} from './Components/Dashboards/OrganizedEventsPage';
+import { UpdateEventsPage } from './Pages/Event/UpdateEventPage';
 
 function App() {
 
@@ -21,16 +22,16 @@ function App() {
      <Toaster position='top-center' toastOptions={{ default : { duration : 1500} }}/>
      <Routes>
         <Route path='/' element={<HomePage/>} />
-        <Route path='/:eventslug' element={<EventPage/>} />
+        <Route path='/event/:eventslug' element={<EventPage/>} />
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/forget-password' element={<ForgetPasswordPage/>} />
         <Route path='/user-dashboard' element={<UserDashboard/>} />
         <Route path='/attended-events' element={<AttendedEventsPage/>} />
         <Route path='/organized-events' element={<OrganizedEventsPage/>} />
-
         <Route path='/browse-events' element={<BrowseEventsPage/>} />
         <Route path='/create-event' element={<CreateEventsPage/>} />
+        <Route path='/update-event/:eventslug' element={<UpdateEventsPage/>} />
         <Route path='/noevtfound' element={<NoEventFoundPage/>} />
 
      </Routes>

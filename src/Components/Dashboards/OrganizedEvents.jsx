@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import {Link} from "react-router-dom"
 import NoEventsFound from "../EventComponents/NoEventsFound";
 import { AiOutlineDelete } from "react-icons/ai";
-import { MdOutlineEdit } from "react-icons/md";
+import { MdEdit} from "react-icons/md";
 
 export const OrganizedEvents = () =>{
     const {userInfo, loading} = UseFirebase();
@@ -91,40 +91,18 @@ export const OrganizedEvents = () =>{
     }
 
 
-    const handleEditEvent = async(event) =>{
-        try {
-            
-        } catch (error) {
-            if(error.response){
-                const status = error.response.status;
-                const msg = error.response.data?.msg || "Something went wrong";
-      
-                if(status == 400 || status == 404){
-                  toast.error(msg);
-                }
-                else{
-                  toast.error("Unexpected Error. Please try again");
-                }
-            }
-            else{
-             toast.error("Network error. Please check your connection");
-            }
-        }
-    }
-
-
     return (
         <>
        <div className="w-full flex flex-col items-center">
          {organizedEvts?.length === 0 && <NoEventsFound/>}
-         {organizedEvts?.map((event) =>  <EventCard event={event} handleDeleteEvent={handleDeleteEvent} handleEditEvent={handleEditEvent}/> )}
+         {organizedEvts?.map((event) =>  <EventCard event={event} handleDeleteEvent={handleDeleteEvent} /> )}
         </div>
         </>
     )
 }
 
 
-const EventCard = ({ event, handleEditEvent, handleDeleteEvent }) => (
+const EventCard = ({ event, handleDeleteEvent }) => (
     <div className="flex flex-col bg-white shadow-lg rounded-xl p-4 hover:shadow-xl transition duration-300 mb-4 w-full">
       <Link to={`/${event.slug}`} >
         <img src={event.image} alt={event.name} className="w-full h-30 object-cover rounded-md mb-3" />
@@ -137,8 +115,11 @@ const EventCard = ({ event, handleEditEvent, handleDeleteEvent }) => (
       </div>
 
       <div className="flex ms-auto gap-4 mt-4">
-        <MdOutlineEdit className="text-lg cursor-pointer" onClick={() => handleEditEvent(event)}/>
-        <AiOutlineDelete className="text-lg cursor-pointer" onClick={ () => handleDeleteEvent(event)}/>
+        <Link to={`/update-event/${event.slug}`} >
+          <MdEdit className="text-lg cursor-pointer"/>
+        </Link>
+
+        <AiOutlineDelete className="text-lg cursor-pointer" onClick={() => handleDeleteEvent(event)}/>
       </div>
 
     </div>

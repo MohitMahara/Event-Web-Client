@@ -78,7 +78,7 @@ export const UpcomingEvents = () => {
       >
         {upcomingEvents.map((event) => (
           <SwiperSlide key={event?.id} className="p-4">
-            <NavLink to={`/${event?.slug}`} className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <NavLink to={`/event/${event?.slug}`} className="bg-white shadow-lg rounded-lg overflow-hidden">
               <img src={event?.image} alt={event?.name} className="w-full h-40 object-cover" />
               <div className="p-4">
                 <h3 className="text-lg font-bold">{event?.name}</h3>

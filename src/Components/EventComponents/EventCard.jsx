@@ -14,7 +14,7 @@ export const EventCard = ({ event }) => {
 
   return (
     <>
-      <NavLink to={`/${event.slug}`} key={event.id} className="flex flex-col md:flex-row h-auto md:h-90 w-full bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-200 p-2 cursor-pointer" >
+      <NavLink to={`/event/${event.slug}`} key={event.id} className="flex flex-col md:flex-row h-auto md:h-90 w-full bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-200 p-2 cursor-pointer" >
         <img src={event.image} alt={event.title} className="w-full md:w-1/2 h-40 md:h-full object-cover rounded-lg"/>
         <div className="flex flex-col px-6 py-4 w-full md:w-1/2 h-auto md:h-full justify-left">
           <h3 className="text-3xl font-bold text-gray-900 mb-2">
