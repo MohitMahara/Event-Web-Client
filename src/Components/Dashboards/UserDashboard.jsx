@@ -13,7 +13,7 @@ export const UserDashboard = () => {
       <Layout>
         <div className="w-full p-6">
           <MenuBtn />
-        <div className="flex flex-row p-2 md:px-4 md:py-8 bg-gray-100 w-auto h-screen">
+        <div className="flex flex-row p-2 md:p-4 bg-gray-100 w-auto h-screen">
           <div className="hidden md:block left-sidebar w-1/4 bg-white p-4 rounded-lg shadow-md h-full">
             <div className="profile-header flex flex-col items-center justify-center mb-4">
               {userInfo?.user?.photoURL ? (

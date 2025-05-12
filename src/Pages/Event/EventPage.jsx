@@ -102,12 +102,12 @@ export const EventPage = () =>{
             <div className="w-full md:w-6xl mx-auto px-4 py-8 min-h-screen">
                <h2 className="text-4xl text-gray-900 font-bold text-center">{event?.title}</h2>
 
-              <div className="flex flex-row w-full min-h-screen my-8 gap-4">
-                 <div className="w-3/4 h-full">
-                    <img src={event?.image} alt={event?.title} className="w-full h-100 object-cover rounded-lg" />
+              <div className="flex flex-col  md:flex-row w-full min-h-screen my-8 gap-10 md:gap-4">
+                 <div className="w-full md:w-3/4 md:h-full">
+                    <img src={event?.image} alt={event?.title} className="w-full h-80 md:h-100 object-cover rounded-lg" />
                     <p className="text-gray-700 text-lg mt-4">{event?.description}</p>
                  </div>
-                <div className="w-1/4 h-100 bg-white  p-4 rounded-lg shadow-lg">
+                <div className="w-full md:w-1/4 h-100 bg-white  p-4 rounded-lg shadow-lg">
                     <h3 className="text-xl text-gray-800  text-center font-bold">Event Details</h3>
                      <p className="text-gray-700 text-lg mt-2">Happening on</p>
                      <p className="text-gray-900 text-md mt-2 font-bold">{eventDate}</p>
