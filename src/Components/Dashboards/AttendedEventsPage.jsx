@@ -3,14 +3,18 @@ import { Layout } from "../Layout/Layout";
 import { UseFirebase } from "../../Contexts/firebaseContext";
 import { AttendedEvents } from "./AttendedEvents";
 import { NavLink } from "react-router-dom";
+import { MenuBtn } from "./MenuBtn";
 
 export const AttendedEventsPage = () =>{
     const {userInfo} = UseFirebase();
 
     return ( <>
           <Layout>
-            <div className="flex flex-row px-4 py-8 bg-gray-100 w-auto min-h-screen">
-              <div className="left-sidebar w-1/4 bg-white p-4 rounded-lg shadow-md h-auto">
+            <div className="w-full p-6">
+              <MenuBtn/>
+              
+            <div className="flex flex-row p-2 md:px-4 md:py-8 bg-gray-100 w-auto min-h-screen">
+              <div className="hidden md:block left-sidebar w-1/4 bg-white p-4 rounded-lg shadow-md h-auto">
                 <div className="profile-header flex flex-col items-center justify-center mb-4">
                   {userInfo?.user?.photoURL ? (
                     <>
@@ -52,9 +56,11 @@ export const AttendedEventsPage = () =>{
 
 
               </div>
-              <div className="right-content w-3/4  p-4  ml-4 flex flex-col items-center">
+              <div className="right-content w-full md:w-3/4 md:p-4 md:ml-4 flex flex-col">
+                <h3 className="text-2xl text-gray-800 font-bold mb-4">Attended Events</h3>
                 <AttendedEvents/>
               </div>
+            </div>
             </div>
           </Layout>
     </>

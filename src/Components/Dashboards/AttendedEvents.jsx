@@ -59,7 +59,7 @@ export const AttendedEvents = () =>{
 
     return (
         <>
-       <div className="w-full flex flex-col items-center">
+       <div className="w-full flex flex-col items-center justify-center">
          {attendedEvts?.length === 0 && <NoEventsFound/>}
          {attendedEvts?.map((event) =>  <EventCard event={event} /> )}
         </div>

@@ -93,7 +93,7 @@ export const OrganizedEvents = () =>{
 
     return (
         <>
-       <div className="w-full flex flex-col items-center">
+       <div className="w-full flex flex-col items-center justify-center">
          {organizedEvts?.length === 0 && <NoEventsFound/>}
          {organizedEvts?.map((event) =>  <EventCard event={event} handleDeleteEvent={handleDeleteEvent} /> )}
         </div>

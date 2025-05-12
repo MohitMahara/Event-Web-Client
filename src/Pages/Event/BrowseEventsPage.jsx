@@ -190,15 +190,15 @@ export const BrowseEventsPage = () => {
       <Layout>
         <div className="w-full items-center min-h-screen py-8 px-4 mx-auto">
           
-          <div className="md:w-md w-sm flex justify-center bg-blue-500 p-3 rounded-lg mb-8 mx-auto">
+          <div className="md:w-md w-xs flex justify-center bg-blue-500 p-3 rounded-lg mb-8 mx-auto">
            <TabBtn text={"All"} tabNo={1} openedTab={openedTab} setOpenedTab={setOpenedTab} />
            <TabBtn text={"Upcoming"} tabNo={2} openedTab={openedTab} setOpenedTab={setOpenedTab} />
            <TabBtn text={"Completed"} tabNo={3} openedTab={openedTab} setOpenedTab={setOpenedTab} />
           </div>
 
-          <div className="w-sm md:w-6xl mb-2 flex gap-2 md:gap-4 mx-auto h-auto justify-between">
+          <div className="xs :w-xs w-full lg:w-6xl mb-2 flex gap-2 md:gap-4 mx-auto h-auto justify-between">
             
-             <div className="w-[90%] flex justify-between rounded-lg bg-white p-2 rounded-xl gap-2">
+             <div className="w-[90%] flex justify-between rounded-lg bg-white md:p-2 rounded-xl gap-2">
                <input type="text" className="w-[95%] p-3 border border-blue-900 hover:border-blue-500 rounded-lg bg-gray-200 focus:outline-none transition duration-200" placeholder="Search for events..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                <button id="filter-btn" className="text-gray-700 cursor-pointer" onClick={handleFilterToggle}>
                   <svg
@@ -218,7 +218,7 @@ export const BrowseEventsPage = () => {
           
           {isFilterOpened && <>
        
-           <div className="w-full md:w-6xl mt-4 flex justify-left mx-auto h-auto pl-3">
+           <div className="w-full lg:w-6xl mt-4 flex justify-left mx-auto h-auto pl-3">
               <div className="w-sm md:w-4xl flex flex-col bg-gray-200 h-auto p-8 rounded-md text-white">
                 <h3 className="text-gray-900 text-lg mb-4">Filters</h3>
                 <div className="flex flex-col">
@@ -254,7 +254,7 @@ export const BrowseEventsPage = () => {
 
 
       
-            <div className="w-full md:w-6xl flex flex-col gap-15 mx-auto min:h-screen mt-8">
+            <div className="w-full lg:w-6xl flex flex-col gap-15 mx-auto min:h-screen mt-8">
               {openedTab == 1 && 
                  allEvents.map((event) => (
                     <EventCard event={event}/>

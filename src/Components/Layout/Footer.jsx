@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -8,22 +9,21 @@ export const Footer = () => {
           <div className="text-xl font-semibold">
             <p>MSI</p>
           </div>
-          {/* Center - Navigation Links */}
           <ul className="flex space-x-4 mt-4 md:mt-0">
             <li>
-              <a href="#" className="hover:text-gray-400">
+              <Link to="/" className="hover:text-gray-400">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-400">
+              <Link to="/browse-events" className="hover:text-gray-400">
                 Events
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-400">
-                Quick links
-              </a>
+              <Link to="/browse-events" className="hover:text-gray-400">
+                Upcoming Events
+              </Link>
             </li>
 
           </ul>

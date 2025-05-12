@@ -3,6 +3,7 @@ import { Layout } from "../Layout/Layout";
 import { UseFirebase } from "../../Contexts/firebaseContext";
 import { ProfilePage } from "../Profile/ProfilePage";
 import { NavLink } from "react-router-dom";
+import { MenuBtn } from "./MenuBtn";
 
 export const UserDashboard = () => {
   const { userInfo } = UseFirebase();
@@ -10,8 +11,10 @@ export const UserDashboard = () => {
   return (
     <>
       <Layout>
-        <div className="flex flex-row px-4 py-8 bg-gray-100 w-auto h-screen">
-          <div className="left-sidebar w-1/4 bg-white p-4 rounded-lg shadow-md h-full">
+        <div className="w-full p-6">
+          <MenuBtn />
+        <div className="flex flex-row p-2 md:px-4 md:py-8 bg-gray-100 w-auto h-screen">
+          <div className="hidden md:block left-sidebar w-1/4 bg-white p-4 rounded-lg shadow-md h-full">
             <div className="profile-header flex flex-col items-center justify-center mb-4">
               {userInfo?.user?.photoURL ? (
                 <>
@@ -50,9 +53,10 @@ export const UserDashboard = () => {
             </div>
 
           </div>
-          <div className="right-content w-3/4  p-4  min-h-full ml-4 flex flex-col items-center justify-center">
+          <div className="right-content flex justify-center w-full md:w-3/4  md:p-4 min-h-full md:ml-4">
               <ProfilePage/>
           </div>
+        </div>
         </div>
       </Layout>
     </>

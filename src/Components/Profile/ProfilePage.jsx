@@ -1,12 +1,12 @@
 import React from "react";
 import { UseFirebase } from "../../Contexts/firebaseContext";
+import { MenuBtn } from "../Dashboards/MenuBtn";
 
 export const ProfilePage = () => {
   const { userInfo } = UseFirebase();
 
   return (
-      <div className="w-[70%] bg-white shadow-lg rounded-xl p-6 flex flex-col items-center h-full">
-        
+      <div className="w-full md:w-[70%] bg-white shadow-lg rounded-xl p-6 flex flex-col items-center h-full">
         <div className="w-full">
           <ProfileField label="First Name" value={userInfo?.user?.name || "N/A"} />
           <ProfileField label="Last Name" value={userInfo?.user?.name || "N/A"} />
@@ -15,7 +15,7 @@ export const ProfilePage = () => {
           <ProfileField label="Course" value={userInfo?.user?.course || "N/A"} />
 
         </div>
-    </div>
+      </div>
   );
 };
 
