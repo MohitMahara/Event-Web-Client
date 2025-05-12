@@ -104,7 +104,7 @@ export const OrganizedEvents = () =>{
 
 const EventCard = ({ event, handleDeleteEvent }) => (
     <div className="flex flex-col bg-white shadow-lg rounded-xl p-4 hover:shadow-xl transition duration-300 mb-4 w-full">
-      <Link to={`/${event.slug}`} >
+      <Link to={`/event/${event.slug}`} >
         <img src={event.image} alt={event.name} className="w-full h-30 object-cover rounded-md mb-3" />
       </Link>
   

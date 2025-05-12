@@ -69,7 +69,7 @@ export const AttendedEvents = () =>{
 
 
 const EventCard = ({ event }) => (
-    <Link to={`/${event.slug}`} className="bg-white shadow-lg rounded-xl p-4 hover:shadow-xl transition duration-300 cursor-pointer mb-4 w-full">
+    <Link to={`/event/${event.slug}`} className="bg-white shadow-lg rounded-xl p-4 hover:shadow-xl transition duration-300 cursor-pointer mb-4 w-full">
       <img src={event.image} alt={event.name} className="w-full h-30 object-cover rounded-md mb-3" />
   
       <h2 className="text-lg font-semibold text-gray-900">{event.name}</h2>
