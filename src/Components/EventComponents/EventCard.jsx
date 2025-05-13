@@ -31,9 +31,13 @@ export const EventCard = ({ event }) => {
               <strong>Organized by:</strong>{event.organizer}
             </p>
           </div>
-          <button className="mt-6 text-gray-200 bg-blue-500 py-2 px-4 rounded-md w-[30%] hover:bg-blue-700 transition duration-200" type="submit">
-            {event.date > Date.now() ? "Register" : "Ended"}
-          </button>
+
+          {new Date(event?.date) > new Date() ?
+            <button className="mt-6 text-gray-200 bg-blue-500 py-2 px-4 rounded-md w-[30%] hover:bg-blue-700 transition duration-200" type="submit">Register</button>
+              :
+            <button className="mt-6 text-gray-200 bg-blue-500 py-2 px-4 rounded-md w-[30%] hover:bg-blue-700 transition duration-200" type="submit">Ended</button>
+
+          }
         </div>
       </NavLink>
     </>
